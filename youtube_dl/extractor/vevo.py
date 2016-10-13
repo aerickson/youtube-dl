@@ -101,6 +101,22 @@ class VevoIE(VevoBaseIE):
             'genre': 'Rap/Hip-Hop',
         },
     }, {
+        'note': 'AJE TEST',
+        'url': 'https://www.vevo.com/watch/lemaitre/Wait/USUV71402190',
+        'md5': 'd28675e5e8805035d949dc5cf161071d',
+        'info_dict': {
+            'id': 'USUV71402190',
+            'ext': 'mp4',
+            'title': 'Lemaitre ft. LoLo - Wait',
+            'age_limit': 18,
+            'timestamp': 1413432000,
+            'upload_date': '20141016',
+            'uploader': 'Lemaitre',
+            'track': 'Wait',
+            'artist': 'Lemaitre ft. LoLo',
+            'genre': 'Electronic',
+        },
+    }, {    
         'note': 'Only available via webpage',
         'url': 'http://www.vevo.com/watch/GBUV71600656',
         'md5': '67e79210613865b66a47c33baa5e37fe',
@@ -201,11 +217,12 @@ class VevoIE(VevoBaseIE):
     def _real_extract(self, url):
         video_id = self._match_id(url)
 
-        json_url = 'http://api.vevo.com/VideoService/AuthenticateVideo?isrc=%s' % video_id
-        response = self._download_json(
-            json_url, video_id, 'Downloading video info',
-            'Unable to download info', fatal=False) or {}
-        video_info = response.get('video') or {}
+        json_url = 'https://api.vevo.com/VideoService/AuthenticateVideo?isrc=%s' % video_id
+        # response = self._download_json(
+        #     json_url, video_id, 'Downloading video info',
+        #     'Unable to download info', fatal=False) or {}
+        # video_info = response.get('video') or {}
+        video_info = {}
         artist = None
         featured_artist = None
         uploader = None
@@ -228,6 +245,9 @@ class VevoIE(VevoBaseIE):
                 'video/%s' % video_id, video_id, 'Downloading api video info',
                 'Failed to download video info')
 
+            # AJE
+            print video_info
+
             video_versions = self._call_api(
                 'video/%s/streams' % video_id, video_id,
                 'Downloading video versions info',
@@ -242,8 +262,30 @@ class VevoIE(VevoBaseIE):
 
             timestamp = parse_iso8601(video_info.get('releaseDate'))
             artists = video_info.get('artists')
-            if artists:
-                artist = uploader = artists[0]['name']
+
+
+
+
+
+
+            # if artists:
+            #     if video_info.get()
+            #     artist = uploader = artists[0]['name']
+
+            feature_string = ''
+            for artist in artists:
+                if artist['role'] == 'Featured':
+                    feature_string = ' ft. ' + artist['name']
+                elif artist['role'] == 'Main':
+                    # artist = artist['name']
+                    artist = 'booger'
+                    uploader = artist
+            if feature_string != '':
+                print "FS"
+                artist = artist + feature_string
+
+
+
             view_count = int_or_none(video_info.get('views', {}).get('total'))
 
             for video_version in video_versions:
