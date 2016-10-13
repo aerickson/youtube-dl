@@ -219,11 +219,10 @@ class VevoIE(VevoBaseIE):
 
         json_url = 'http://api.vevo.com/VideoService/AuthenticateVideo?isrc=%s' % video_id
         # this request always returns a 500 (non-fatal in normal use, but causes test errors)
-        # response = self._download_json(
-        #     json_url, video_id, 'Downloading video info',
-        #     'Unable to download info', fatal=False) or {}
-        # video_info = response.get('video') or {}
-        video_info = {}
+        response = self._download_json(
+            json_url, video_id, 'Downloading video info',
+            'Unable to download info', fatal=False) or {}
+        video_info = response.get('video') or {}
         artist = None
         featured_artist = None
         uploader = None
@@ -245,8 +244,6 @@ class VevoIE(VevoBaseIE):
             video_info = self._call_api(
                 'video/%s' % video_id, video_id, 'Downloading api video info',
                 'Failed to download video info')
-
-            print video_info
 
             video_versions = self._call_api(
                 'video/%s/streams' % video_id, video_id,
