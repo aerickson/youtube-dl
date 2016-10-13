@@ -116,7 +116,7 @@ class VevoIE(VevoBaseIE):
             'artist': 'Lemaitre',
             'genre': 'Electronic',
         },
-    }, {    
+    }, {
         'note': 'Only available via webpage',
         'url': 'http://www.vevo.com/watch/GBUV71600656',
         'md5': '67e79210613865b66a47c33baa5e37fe',
@@ -218,10 +218,11 @@ class VevoIE(VevoBaseIE):
         video_id = self._match_id(url)
 
         json_url = 'https://api.vevo.com/VideoService/AuthenticateVideo?isrc=%s' % video_id
-        # response = self._download_json(
-        #     json_url, video_id, 'Downloading video info',
-        #     'Unable to download info', fatal=False) or {}
-        # video_info = response.get('video') or {}
+        # this request always returns a 500 (non-fatal in normal use, but causes test errors)
+        response = self._download_json(
+            json_url, video_id, 'Downloading video info',
+            'Unable to download info', fatal=False) or {}
+        video_info = response.get('video') or {}
         video_info = {}
         artist = None
         featured_artist = None
