@@ -108,12 +108,12 @@ class VevoIE(VevoBaseIE):
             'id': 'USUV71402190',
             'ext': 'mp4',
             'title': 'Lemaitre ft. LoLo - Wait',
-            'age_limit': 18,
+            'age_limit': 0,
             'timestamp': 1413432000,
             'upload_date': '20141016',
             'uploader': 'Lemaitre',
             'track': 'Wait',
-            'artist': 'Lemaitre ft. LoLo',
+            'artist': 'Lemaitre',
             'genre': 'Electronic',
         },
     }, {    
@@ -272,17 +272,12 @@ class VevoIE(VevoBaseIE):
             #     if video_info.get()
             #     artist = uploader = artists[0]['name']
 
-            feature_string = ''
             for artist in artists:
                 if artist['role'] == 'Featured':
-                    feature_string = ' ft. ' + artist['name']
+                    featured_artist = artist['name']
                 elif artist['role'] == 'Main':
-                    # artist = artist['name']
-                    artist = 'booger'
+                    artist = artist['name']
                     uploader = artist
-            if feature_string != '':
-                print "FS"
-                artist = artist + feature_string
 
 
 
