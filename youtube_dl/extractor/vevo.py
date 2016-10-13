@@ -101,7 +101,7 @@ class VevoIE(VevoBaseIE):
             'genre': 'Rap/Hip-Hop',
         },
     }, {
-        'note': 'AJE TEST',
+        'note': 'Featured test',
         'url': 'https://www.vevo.com/watch/lemaitre/Wait/USUV71402190',
         'md5': 'd28675e5e8805035d949dc5cf161071d',
         'info_dict': {
@@ -244,9 +244,6 @@ class VevoIE(VevoBaseIE):
             video_info = self._call_api(
                 'video/%s' % video_id, video_id, 'Downloading api video info',
                 'Failed to download video info')
-
-            # AJE
-            print video_info
 
             video_versions = self._call_api(
                 'video/%s/streams' % video_id, video_id,
