@@ -223,7 +223,6 @@ class VevoIE(VevoBaseIE):
             json_url, video_id, 'Downloading video info',
             'Unable to download info', fatal=False) or {}
         video_info = response.get('video') or {}
-        video_info = {}
         artist = None
         featured_artist = None
         uploader = None
