@@ -265,7 +265,6 @@ class VevoIE(VevoBaseIE):
                 elif artist['role'] == 'Main':
                     artist = artist['name']
                     uploader = artist
-
             view_count = int_or_none(video_info.get('views', {}).get('total'))
 
             for video_version in video_versions:
