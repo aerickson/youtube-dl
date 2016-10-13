@@ -262,24 +262,12 @@ class VevoIE(VevoBaseIE):
 
             timestamp = parse_iso8601(video_info.get('releaseDate'))
             artists = video_info.get('artists')
-
-
-
-
-
-
-            # if artists:
-            #     if video_info.get()
-            #     artist = uploader = artists[0]['name']
-
             for artist in artists:
                 if artist['role'] == 'Featured':
                     featured_artist = artist['name']
                 elif artist['role'] == 'Main':
                     artist = artist['name']
                     uploader = artist
-
-
 
             view_count = int_or_none(video_info.get('views', {}).get('total'))
 
