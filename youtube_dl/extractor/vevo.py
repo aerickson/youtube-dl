@@ -265,12 +265,9 @@ class VevoIE(VevoBaseIE):
                     if curr_artist['role'] == 'Featured':
                         featured_artist = curr_artist['name']
                     elif curr_artist['role'] == 'Main':
-                        artist = curr_artist['name']
-                        uploader = curr_artist['name']
+                        artist = uploader = curr_artist['name']
                 else:
-                    # if no role, it's not clear who the main artist is... first wins.
-                    artist = curr_artist['name']
-                    uploader = curr_artist['name']
+                    artist = uploader = curr_artist['name']
                     break
             view_count = int_or_none(video_info.get('views', {}).get('total'))
 
